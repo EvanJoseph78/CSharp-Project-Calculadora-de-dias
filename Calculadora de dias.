@@ -1,0 +1,232 @@
+//declaração das variáveis de entrada
+
+int diaInicial = 0, diaFinal = 0, mesInicial = 0, mesFinal = 0, anoInicial = 0, anoFinal = 0;  
+
+  
+
+//vetor que guarda a quantidade de dias dos meses.
+
+int[] mes = {0,31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+
+//declarão de variáveis auxiliáres
+
+  
+
+int dataValida = 0, qDiasDecorridos = 0, somaMes = 0, i = 0, numMes = 0, somaAno = 0;
+
+  
+
+//laço de repetição que faz o usuário entrar
+
+//apenas com uma data válida
+
+//caso ele insira uma data não válida o programa
+
+// pede pra re-inserir uma data válida
+
+  
+
+while(dataValida == 0){                                                                  
+
+    Console.WriteLine("Entre com o dia o mes e o ano:");                                
+
+    diaInicial = Convert.ToInt32(Console.ReadLine());              
+
+    mesInicial = Convert.ToInt32(Console.ReadLine());                                  
+
+    anoInicial = Convert.ToInt32(Console.ReadLine());
+
+    //verifica se o ano que o usuário entrou é bisexto
+
+    //e se for faz o mês de fevereiro ter 29 dias
+
+  
+
+    if (anoInicial % 4 == 0){          
+
+    mes[2] = 29;                                                      
+
+    }
+
+    // condições para que a data seja inválida
+
+    if ((anoInicial < 0) || (mesInicial > 12) || (mesInicial < 1) || (diaInicial < 1) || (diaInicial > mes[mesInicial])){
+
+        Console.WriteLine("Entre com uma data válida válida!!!");  
+
+    }else{
+
+        //caso a data digitada seja válida o programa sai do laço
+
+        Console.WriteLine($"Você digitou a data: {diaInicial}/{mesInicial}/{anoInicial}");  
+
+        Console.WriteLine();    
+
+        //condição para poder sair do laço                                                  
+
+        dataValida = 1;                                                                    
+
+    }
+
+  
+
+}
+
+// redefine a quantidade de dias padrão de mês de fevereiro
+
+mes[2] = 28;        
+
+  
+
+//faz o usuário entrar com uma segunda data válida do mesmo modo do primeiro laço
+
+while(dataValida == 1){                                                    
+
+    Console.WriteLine("Entre com a segunda data - dia mes e ano:");
+
+    diaFinal = Convert.ToInt32(Console.ReadLine());
+
+    mesFinal = Convert.ToInt32(Console.ReadLine());
+
+    anoFinal = Convert.ToInt32(Console.ReadLine());
+
+  
+
+    if (anoFinal % 4 == 0){
+
+    mes[2] = 29;
+
+    }
+
+    if ((anoFinal < 0) || (mesFinal > 12) || (mesFinal < 1) || (diaFinal < 1) || (diaFinal > mes[mesFinal])){
+
+        Console.WriteLine("Entre com uma data válida válida!!!");
+
+    }else{
+
+        Console.WriteLine($"Você digitou a data: {diaFinal}/{mesFinal}/{anoFinal}");
+
+        Console.WriteLine();
+
+        dataValida = 0;
+
+    }
+
+  
+
+}
+
+  
+
+// condicional para verificar a diferença entre duas datas de anos iguais
+
+if(anoFinal == anoInicial){      
+
+    mes[2] = 28;
+
+    if (anoFinal % 4 == 0){
+
+        mes[2] = 29;
+
+    }
+
+    for (i = mesInicial; i <= mesFinal; i++){
+
+        somaMes = somaMes + mes[i];
+
+        //Console.WriteLine(somaMes);
+
+    }
+
+    numMes = somaMes - diaInicial - (mes[mesFinal] - diaFinal);
+
+    //calcula o número de dias e mostra para o usuário
+
+    Console.WriteLine($"O número de dias é: {numMes}");
+
+}
+
+  
+  
+
+if(anoFinal > anoInicial){                  
+
+    for(i = anoInicial; i < anoFinal; i++){
+
+        //faz a variável auxiliar ano ser 365  
+
+        int ano = 365;    
+
+        //como i está em um laço de repeticão e i é o ano inicial que vai variar até o ano                
+
+        if (i % 4 == 0){
+
+            //final, quando o ano i for um ano bisexto a variável ano = 366                    
+
+            ano = 366;                      
+
+        }
+
+        //soma a quantidade de anos e guarda em somaAno
+
+        somaAno = somaAno + ano;            
+
+    }
+
+     //redefine a somaMes
+
+    somaMes = 0;
+
+    //redefine a quantidade de dias do mês de fevereiro para 28
+
+    mes[2] = 28;
+
+    //caso o ano seja bisexto
+
+    if(anoFinal % 4 == 0){
+
+        //faz a quantidade de dias do mês de fevereiro ser 29
+
+        mes[2] = 29;
+
+    }
+
+    //laço de repetição pra somar os meses entre as datas
+
+    for (i = 1; i <= mesFinal; i++){
+
+        somaMes = somaMes + mes[i];
+
+    }
+
+    //variável auxiliar
+
+    int numDiasAnoFinal = somaMes + diaFinal - mes[mesFinal];
+
+  
+
+    somaMes = 0;
+
+    mes[2] = 28;
+
+    if(anoFinal % 4 == 0){
+
+        mes[2] = 29;
+
+    }
+
+    for (i = 1; i <= mesInicial; i++){
+
+        somaMes = somaMes + mes[i];
+
+    }
+
+    int numDiasAnoInicial = somaMes + diaInicial - mes[mesInicial];
+
+    //usa as variáveis auxiliares para calcular os dias decorridos as datas
+
+    qDiasDecorridos = somaAno + numDiasAnoFinal - numDiasAnoInicial;  
+
+    Console.WriteLine($"O número de dias decorridos é de: {qDiasDecorridos}");
+
+}
